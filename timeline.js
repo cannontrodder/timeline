@@ -1,4 +1,6 @@
-﻿/*
+﻿/* jshint node: true */
+
+/*
  * Timeline is designed to take some guidance from the user on what to animate and what triggers it, it then bakes a timeline for each element
  * so it runs in synchronisation.
  * 
@@ -10,22 +12,25 @@ function Timeline() {
     var nop = { nothing: "" };
 
     this.Compile = function (animationSource) {
-        this.animationSource = animationSource;
+        if(typeof animationSource === 'string'){
+            animationSource = JSON.parse(animationSource);
+        }
         this.compiledSource = {};
-        this.compiledSource.title = this.animationSource.title;
-        this.compiledSource.containerSelector = this.animationSource.containerSelector || "";
+        this.compiledSource.title = animationSource.title;
+        this.compiledSource.containerSelector = animationSource.containerSelector || "";
         this.compiledSource.pasteBoardSequences = {};
         this.compiledSource.compiledVelocitySequences = [];
-        this.compiledSource.playlist = [];
 
-        for (var i = 0; i < this.animationSource.animations.length; i++) {
-            var animation = this.animationSource.animations[i];
+        for (var i = 0; i < animationSource.animations.length; i++) {
+            var animation = animationSource.animations[i];
             var pasteBoardSequence = this.getPasteboardSequenceFromAnimation(animation);
             this.compiledSource.pasteBoardSequences[animation.name] = pasteBoardSequence;
         }
 
         this.arrangeSequences();
         this.generateVelocitySequences();
+
+        return this.compilePlaylists();
     };
 
     this.getPasteboardSequenceFromAnimation = function (animation) {
@@ -80,7 +85,7 @@ function Timeline() {
         } while (leftToArrange !== sequencesLeftToArrangeLastTime && leftToArrange > 0);
 
         if (leftToArrange > 0) {
-            log("Timeline ERROR: circular referenced anchor");
+            console.log("Timeline ERROR: circular referenced anchor");
         }
 
         return;
@@ -116,14 +121,14 @@ function Timeline() {
         }
 
         if (sequence.anchorItem.name === undefined) {
-            log("Timeline ERROR: Sequence " + sequence.name + " has anchorItem its name has not been declared?");
+            console.log("Timeline ERROR: Sequence " + sequence.name + " has anchorItem its name has not been declared?");
             return false;
         }
 
         var dependentSequence = this.compiledSource.pasteBoardSequences[sequence.anchorItem.name];
 
         if (dependentSequence === undefined || dependentSequence === null) {
-            log("Timeline ERROR: Could not find " + sequence.anchorItem.name);
+            console.log("Timeline ERROR: Could not find " + sequence.anchorItem.name);
             return false;
         }
 
@@ -176,10 +181,6 @@ function Timeline() {
         }
     }
 
-    function getElementItem(selector) {
-        return $(selector);
-    }
-
     this.getElementSelector = function (animation) {
         if (this.compiledSource.containerSelector === undefined) {
             return animation.selector;
@@ -188,71 +189,44 @@ function Timeline() {
         }
     };
 
-    this.Play = function () {
-        for (var i = 0; i < this.compiledSource.playlist.length; i++) {
-            $.Velocity.RunSequence(this.compiledSource.playlist[i]);
-        }
-    };
-
-    this.ResetAndPlay = function () {
-        var thisTimeline = this;
-        this.Reset(function () {
-            thisTimeline.Play();
-        });
-    };
-
-    this.Reset = function (done) {
+    this.compilePlaylists = function () {
         var keys = Object.keys(this.compiledSource.pasteBoardSequences);
         var i;
         var sequence;
 
+        //for every pasteboarded sequence, add a step to the beginning that includes the offset and the padding
+        var normaliseDelta = -this.lowestPositionInUse;
+        var compiledAnimationSequences = [];
+        var compiledResetSequence = [];
+
         for (i = 0; i < keys.length; i++) {
             sequence = this.compiledSource.pasteBoardSequences[keys[i]];
-            if (sequence.element === undefined)
-                sequence.element = getElementItem(sequence.selector); //populate this here so we don't rely on there being a DOM available (allow compilation server-side)
 
-            sequence.element.hide();
+            sequence.globalPosition += normaliseDelta;
+
+            //add initial delay to position animation in timeline - nothing is not a valid css element but we have to
+            //put something in here because velocity does not have a NOP
+            var newAnimationSequence = [{ selector: sequence.selector, p: nop, o: { duration: sequence.globalPosition + sequence.paddingStart, queue: false } }];
+
+            for (var t = 0; t < sequence.transitions.length; t++) {
+                var velocityTransition = { selector: sequence.selector, p: sequence.transitions[t].transform, o: sequence.transitions[t].options };
+                velocityTransition.o.queue = false;
+                newAnimationSequence.push(velocityTransition);
+            }
+
+            compiledAnimationSequences.push(newAnimationSequence);
+
+            var initialState = sequence.initialState;
             var options = { duration: 0 };
 
-            if (i === keys.length - 1) {
-                var scopedTimeline = this;
-                options.complete = function () {
-                    for (var innerKey in scopedTimeline.compiledSource.pasteBoardSequences) {
-                        scopedTimeline.compiledSource.pasteBoardSequences[innerKey].element.show();
-                    }
-
-                    scopedTimeline.GeneratePlaylist();
-                    done();   //need to call the code further on down in order for playlist to have something in
-                };
-            } else {
-                options.complete = undefined;
+            if(initialState === undefined){
+                initialState = nop;
             }
-
-            if (sequence.initialState !== undefined) {
-                sequence.element.velocity(sequence.initialState, options);
-            } else {
-                sequence.element.velocity(nop, options);
-            }
+          
+            compiledResetSequence.push({ selector: sequence.selector, p: initialState, o: options});
         }
 
-
-    };
-
-    this.GeneratePlaylist = function () {
-        this.compiledSource.playlist = [];
-
-        for (var i = 0; i < this.compiledSource.compiledVelocitySequences.length; i++) {
-            var sequences = this.compiledSource.compiledVelocitySequences[i];
-            var playlistSequence = [];
-
-            for (var j = 0; j < sequences.length; j++) {
-                var transition = sequences[j];
-                var element = getElementItem(transition.selector);
-                playlistSequence.push({ e: element, p: transition.p, o: transition.o });
-            }
-
-            this.compiledSource.playlist.push(playlistSequence);
-        }
+        return { animationPlaylists: compiledAnimationSequences, resetPlaylist: compiledResetSequence};
     };
 }
 
