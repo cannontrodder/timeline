@@ -1,0 +1,11 @@
+{
+  "name": "timeline-player",
+  "version": "1.0.0",
+  "description": "A client-side library to play timelines",
+  "main": "timeline-player.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Neil Trodden <neil.trodden@tombola.com>",
+  "license": "ISC"
+}
