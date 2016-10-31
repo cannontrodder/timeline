@@ -2,6 +2,7 @@
 
 function TimelinePlayer() {
 	this.animations = {};
+	this.events = {};
 
 	this.Clear = function() {
 		this.animations = {};
@@ -42,11 +43,12 @@ function TimelinePlayer() {
 			};
 
 			if (i === animation.resetPlaylist.length - 1) {
-				options.complete = function() {for (var j = 0; j < animation.resetPlaylist.length; j++) {
+				options.complete = function() {
+					for (var j = 0; j < animation.resetPlaylist.length; j++) {
 						animation.resetPlaylist[j].e.show();
 					}
 
-					done(); 
+					done();
 				};
 			} else {
 				options.complete = undefined;
@@ -63,6 +65,15 @@ function TimelinePlayer() {
 				playlist[j].e = getElementItem(playlist[j].selector);
 				delete playlist[j].selector;
 			}
+
+			//if (playlist[j].o !== undefined)
+				if (typeof playlist[j].o.complete === 'string') {
+					var eventName = playlist[j].o.complete;
+					var context = this;
+					playlist[j].o.complete = function(){
+						context.HandleEvent(eventName);
+					};
+				}
 		}
 	};
 
@@ -70,6 +81,25 @@ function TimelinePlayer() {
 		for (var i = 0; i < playlists.length; i++) {
 			this.AttachDOMObjectsToPlaylist(playlists[i]);
 		}
+	};
+
+	this.HandleEvent = function(name){
+		if(this.animations[name] !== undefined){
+			console.log("We found and are going to play " + name);
+			this.ResetAndPlay(name);
+			return;
+		}
+
+		var event = this.events[name];
+
+		if(event !== undefined){
+			event();
+			return;
+		}
+	};
+
+	this.RegisterEvent = function(event, method){
+		this.events[event] = method;
 	};
 
 	function getElementItem(selector) {
