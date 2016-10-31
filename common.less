@@ -13,7 +13,7 @@
 
 
 .offscreen(@startOffscreen, @height) when (@startOffscreen='yes') {
-    bottom: -@height;
+    display: none;
 }
 
 .base(@x, @y, @img: '', @startOffscreen, @hasImage) {
@@ -25,7 +25,7 @@
     height: @y;
 }
 
-.blob(@name, @x, @y, @extension: 'png', @startOffscreen: 'no', @hasImage: 'yes', @isContainer: 'no') {
+.blob(@name, @x, @y, @extension: 'png', @startOffscreen: 'yes', @hasImage: 'yes', @isContainer: 'no') {
     .@{name} {
         .base(@x, @y, '@{name}.@{extension}', @startOffscreen, @hasImage);
         .containerSetup(@isContainer)
