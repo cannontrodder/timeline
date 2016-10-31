@@ -182,12 +182,10 @@ function Timeline() {
         var transitionTotalLength = 0;
 
         if (sequence.transitions !== undefined) {
-            console.log("in here");
             for (var i = 0; i < sequence.transitions.length; i++) {
                 var transition = sequence.transitions[i];
                 transitionTotalLength += transition.options.duration || defaultDuration;
             }
-            console.log("out here");
         }
 
         sequence.sequenceLength = sequence.paddingStart + transitionTotalLength + sequence.paddingEnd;
