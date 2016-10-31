@@ -4,6 +4,66 @@
 		"selected_items":
 		[
 			[
+				"anima",
+				"animationSource"
+			],
+			[
+				"anim",
+				"animations"
+			],
+			[
+				"animation",
+				"animationName"
+			],
+			[
+				"com",
+				"complete"
+			],
+			[
+				"AttachDOMObjects",
+				"AttachDOMObjectsToPlaylist"
+			],
+			[
+				"att",
+				"AttachDOMObjectsToPlaylist"
+			],
+			[
+				"get",
+				"getElementItem"
+			],
+			[
+				"for",
+				"for	for (…) {…}"
+			],
+			[
+				"ani",
+				"animation"
+			],
+			[
+				"animatio",
+				"animation"
+			],
+			[
+				"compil",
+				"compiledResetSequences"
+			],
+			[
+				"initi",
+				"initialState"
+			],
+			[
+				"Tim",
+				"TimelinePlayerObject"
+			],
+			[
+				"ti",
+				"timeline"
+			],
+			[
+				"compi",
+				"compiledSource"
+			],
+			[
 				"time",
 				"timeline-player"
 			],
@@ -20,10 +80,18 @@
 	"buffers":
 	[
 		{
-			"file": "timeline-player/timeline-play.js",
+			"file": "timeline-play/package.json",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 295,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "timeline.js",
+			"settings":
+			{
+				"buffer_size": 9326,
 				"line_ending": "Windows"
 			}
 		}
@@ -71,7 +139,7 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 104.0,
+		"height": 173.0,
 		"last_filter": "install",
 		"selected_items":
 		[
@@ -80,7 +148,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 432.0
+		"width": 416.0
 	},
 	"console":
 	{
@@ -102,16 +170,20 @@
 	"expanded_folders":
 	[
 		"/C/www/timeline",
-		"/C/www/timeline/gulp-timeline",
-		"/C/www/timeline/timeline-player"
+		"/C/www/timeline/timeline-play"
 	],
 	"file_history":
 	[
+		"/C/www/timeline/timeline-play/timeline-play.js",
+		"/C/www/Italy/src/node_modules/timeline/timeline-play/timeline-play.js",
+		"/C/www/timeline/timeline.js",
+		"/C/www/timeline/gulp-timeline/gulp-timeline.js",
+		"/C/www/Italy/src/Tombola.Web.Resources/Scripts/animations/facebook_landing/main-splash.js",
+		"/C/www/timeline/timeline-play/package.json",
 		"/C/www/timeline/gulp-timeline/package.json",
 		"/C/www/timeline/timeline-player/package.json",
 		"/C/www/timeline/package.json",
 		"/C/www/timeline/timeline-player/timeline-play.js",
-		"/C/www/timeline/gulp-timeline/gulp-timeline.js",
 		"/C/Users/neil.trodden/Documents/Rust/src/main.rs",
 		"/C/Users/neil.trodden/Documents/Rust/Cargo.toml",
 		"/C/Users/neil.trodden/Documents/Rust/hello_world.rs",
@@ -119,7 +191,7 @@
 	],
 	"find":
 	{
-		"height": 0.0
+		"height": 32.0
 	},
 	"find_in_files":
 	{
@@ -133,6 +205,41 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"log",
+			"\n		",
+			"animationPlaylist",
+			"reset",
+			"lo",
+			"log",
+			"\n					",
+			"getElementItem",
+			"AttachDOMObjectsToPlaylist",
+			"animationPlaylists",
+			"animation",
+			"log",
+			"sequen",
+			"AttachDOMObjects",
+			"compiledResetSequence",
+			"compiledResetSequences",
+			"AttachDOMObjects",
+			"attachDOMObjects",
+			"compilePlaylists",
+			"log",
+			"compilePlaylists",
+			"GeneratePlaylist",
+			"getElementItem",
+			"compilePlaylists",
+			");\n",
+			"generate",
+			"compiledVelocitySequences",
+			"GeneratePlaylist",
+			"generateVelocitySequences",
+			"pasteBoardSequences",
+			"playlist",
+			"generateVelocitySequences",
+			"pla",
+			"Play",
+			"play"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -150,29 +257,59 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "timeline-player/timeline-play.js",
+					"file": "timeline-play/package.json",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 295,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
+								135,
+								135
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "timeline.js",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 9326,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								23,
 								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -182,15 +319,20 @@
 					"type": "text"
 				}
 			]
+		},
+		{
+			"sheets":
+			[
+			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 0.0
+		"height": 32.0
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 43.0
 	},
 	"layout":
 	{
@@ -201,11 +343,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.688312861272,
 			1.0
 		],
 		"rows":
@@ -227,7 +376,7 @@
 	"project": "timeline.sublime-project",
 	"replace":
 	{
-		"height": 0.0
+		"height": 60.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -265,7 +414,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 190.0,
+	"side_bar_width": 472.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

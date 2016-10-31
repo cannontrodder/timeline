@@ -9,10 +9,13 @@
 
 function Timeline() {
     var defaultDuration = 400;
-    var nop = { nothing: "" };
+    var nop = {
+        nothing: ""
+    };
 
-    this.Compile = function (animationSource) {
-        if(typeof animationSource === 'string'){
+    this.Compile = function(animationSource) {
+
+        if (typeof animationSource === 'string') {
             animationSource = JSON.parse(animationSource);
         }
         this.compiledSource = {};
@@ -26,20 +29,20 @@ function Timeline() {
             var pasteBoardSequence = this.getPasteboardSequenceFromAnimation(animation);
             this.compiledSource.pasteBoardSequences[animation.name] = pasteBoardSequence;
         }
-
         this.arrangeSequences();
         this.generateVelocitySequences();
 
         return this.compilePlaylists();
     };
 
-    this.getPasteboardSequenceFromAnimation = function (animation) {
-        var transitions = [];
+    this.getPasteboardSequenceFromAnimation = function(animation) {
         var selector = this.getElementSelector(animation);
 
-        for (var i = 0; i < animation.transitions; i++) {
-            animation.transitions[i].options = animation.transitions[i].options || {};
-            defaultToIgnoringGlobalQueue(transitions[i]);
+        if (animation.transitions !== undefined) {
+            for (var i = 0; i < animation.transitions.length; i++) {
+                animation.transitions[i].options = animation.transitions[i].options || {};
+                defaultToIgnoringGlobalQueue(animation.transitions[i]);
+            }
         }
 
         var pasteBoardSequence = {
@@ -59,7 +62,7 @@ function Timeline() {
         return pasteBoardSequence;
     };
 
-    this.arrangeSequences = function () {
+    this.arrangeSequences = function() {
         this.lowestPositionInUse = 0;
 
         var sequencesLeftToArrangeLastTime;
@@ -91,7 +94,7 @@ function Timeline() {
         return;
     };
 
-    this.generateVelocitySequences = function () {
+    this.generateVelocitySequences = function() {
         //for every pasteboarded sequence, add a step to the beginning that includes the offset and the padding
         var normaliseDelta = -this.lowestPositionInUse;
         this.compiledSource.compiledVelocitySequences = [];
@@ -102,19 +105,31 @@ function Timeline() {
 
             //add initial delay to position animation in timeline - nothing is not a valid css element but we have to
             //put something in here because velocity does not have a NOP
-            var newVelocitySequence = [{ selector: sequence.selector, p: nop, o: { duration: sequence.globalPosition + sequence.paddingStart, queue: false } }];
+            var newVelocitySequence = [{
+                selector: sequence.selector,
+                p: nop,
+                o: {
+                    duration: sequence.globalPosition + sequence.paddingStart,
+                    queue: false
+                }
+            }];
 
-            for (var t = 0; t < sequence.transitions.length; t++) {
-                var velocityTransition = { selector: sequence.selector, p: sequence.transitions[t].transform, o: sequence.transitions[t].options };
-                velocityTransition.o.queue = false;
-                newVelocitySequence.push(velocityTransition);
-            }
+            if (sequence.transitions !== undefined)
+                for (var t = 0; t < sequence.transitions.length; t++) {
+                    var velocityTransition = {
+                        selector: sequence.selector,
+                        p: sequence.transitions[t].transform,
+                        o: sequence.transitions[t].options
+                    };
+                    velocityTransition.o.queue = false;
+                    newVelocitySequence.push(velocityTransition);
+                }
 
             this.compiledSource.compiledVelocitySequences.push(newVelocitySequence);
         }
     };
 
-    this.positionSequenceOnPasteboardIfPossible = function (sequence) {
+    this.positionSequenceOnPasteboardIfPossible = function(sequence) {
         if (sequence.anchorItem === undefined) { //depends on nothing so add to pasteboard
             this.setSequencePositionOnPasteboard(sequence, sequence.anchorOffset);
             return true;
@@ -151,12 +166,11 @@ function Timeline() {
             this.setSequencePositionOnPasteboard(sequence, position);
 
             return true;
-        }
-        else
+        } else
             return false;
     };
 
-    this.setSequencePositionOnPasteboard = function (sequence, position) {
+    this.setSequencePositionOnPasteboard = function(sequence, position) {
         sequence.globalPosition = position;
 
         if (position < this.lowestPositionInUse) {
@@ -167,9 +181,13 @@ function Timeline() {
     function calculateSequenceLength(sequence) {
         var transitionTotalLength = 0;
 
-        for (var i = 0; i < sequence.transitions.length; i++) {
-            var transition = sequence.transitions[i];
-            transitionTotalLength += transition.options.duration || defaultDuration;
+        if (sequence.transitions !== undefined) {
+            console.log("in here");
+            for (var i = 0; i < sequence.transitions.length; i++) {
+                var transition = sequence.transitions[i];
+                transitionTotalLength += transition.options.duration || defaultDuration;
+            }
+            console.log("out here");
         }
 
         sequence.sequenceLength = sequence.paddingStart + transitionTotalLength + sequence.paddingEnd;
@@ -181,7 +199,7 @@ function Timeline() {
         }
     }
 
-    this.getElementSelector = function (animation) {
+    this.getElementSelector = function(animation) {
         if (this.compiledSource.containerSelector === undefined) {
             return animation.selector;
         } else {
@@ -189,7 +207,7 @@ function Timeline() {
         }
     };
 
-    this.compilePlaylists = function () {
+    this.compilePlaylists = function() {
         var keys = Object.keys(this.compiledSource.pasteBoardSequences);
         var i;
         var sequence;
@@ -206,28 +224,49 @@ function Timeline() {
 
             //add initial delay to position animation in timeline - nothing is not a valid css element but we have to
             //put something in here because velocity does not have a NOP
-            var newAnimationSequence = [{ selector: sequence.selector, p: nop, o: { duration: sequence.globalPosition + sequence.paddingStart, queue: false } }];
+            var newAnimationSequence = [{
+                selector: sequence.selector,
+                p: nop,
+                o: {
+                    duration: sequence.globalPosition + sequence.paddingStart,
+                    queue: false
+                }
+            }];
 
-            for (var t = 0; t < sequence.transitions.length; t++) {
-                var velocityTransition = { selector: sequence.selector, p: sequence.transitions[t].transform, o: sequence.transitions[t].options };
-                velocityTransition.o.queue = false;
-                newAnimationSequence.push(velocityTransition);
-            }
+            if (sequence.transitions !== undefined)
+                for (var t = 0; t < sequence.transitions.length; t++) {
+                    var velocityTransition = {
+                        selector: sequence.selector,
+                        p: sequence.transitions[t].transform,
+                        o: sequence.transitions[t].options
+                    };
+                    velocityTransition.o.queue = false;
+                    newAnimationSequence.push(velocityTransition);
+                }
 
             compiledAnimationSequences.push(newAnimationSequence);
 
             var initialState = sequence.initialState;
-            var options = { duration: 0 };
+            var options = {
+                duration: 0
+            };
 
-            if(initialState === undefined){
+            if (initialState === undefined) {
                 initialState = nop;
             }
-          
-            compiledResetSequence.push({ selector: sequence.selector, p: initialState, o: options});
+
+            compiledResetSequence.push({
+                selector: sequence.selector,
+                p: initialState,
+                o: options
+            });
         }
 
-        return { animationPlaylists: compiledAnimationSequences, resetPlaylist: compiledResetSequence};
+        return {
+            animationPlaylists: compiledAnimationSequences,
+            resetPlaylist: compiledResetSequence
+        };
     };
 }
 
-module.exports = Timeline;
+module.exports = Timeline;;

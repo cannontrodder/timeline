@@ -1,0 +1,40 @@
+﻿.optionalimage (@img) when not (@img='') {
+    background-image: url("@{image_path}@{img}");
+}
+
+.offscreen(@startOffscreen, @height) when (@startOffscreen='yes') {
+    bottom: -@height;
+}
+
+.base(@x, @y, @img, @startOffscreen) {
+    .optionalimage(@img);
+    padding: 0;
+    margin: 0;
+    width: @x;
+    height: @y;
+    .offscreen(@startOffscreen, @y);
+}
+
+
+
+// If you put items inside a view port and scroll them around, it clips
+// the inner image so it does not show outside the div - this then lets you hide images too
+// the image is optional
+
+.viewport(@name, @x, @y, @img: '', @startOffscreen: 'yes' ) {
+    @{name} {
+        .base(@x, @y, @img, @startOffscreen);
+        position: relative;
+        overflow: hidden;
+    }
+}
+
+// Blobs are images you want to fly around the screen hence and we name them after the images
+// You are allowed to over-ride the extension
+
+.blob(@name, @x, @y, @extension: 'png', @startOffscreen: 'yes') {
+    .@{name} {
+        .base(@x, @y, '@{name}.@{extension}', @startOffscreen);
+        position: absolute;
+    }
+}
