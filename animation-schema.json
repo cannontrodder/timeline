@@ -20,6 +20,9 @@
                     "selector": {
                         "type": "string"
                     },
+                    "comment": {
+                        "type": "string"
+                    },
                     "initialState": {
                         "type": "object"
                     },
