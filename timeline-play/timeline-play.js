@@ -114,6 +114,10 @@ function TimelinePlayer() {
 	};
 
 	function getElementItem(selector) {
+		var element = $(selector);
+		if(element.size() === 0)
+			console.log("Timeline ERROR: cannot find DOM element " + selector + " is not defined.");
+
 		return $(selector);
 	}
 }
