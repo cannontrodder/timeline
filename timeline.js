@@ -14,49 +14,53 @@ function Timeline() {
     };
 
     this.Compile = function(animationSource) {
+        this.importSourceDataIntoPasteboard(animationSource);
+        this.arrangeSequences();
+        return this.compilePlaylists();
+    };
 
+    this.importSourceDataIntoPasteboard = function(animationSource) {
         if (typeof animationSource === 'string') {
             animationSource = JSON.parse(animationSource);
         }
+
         this.compiledSource = {};
-        this.compiledSource.title = animationSource.title;
+        this.compiledSource.title = animationSource.title || "TimeLineAnimation";
         this.compiledSource.containerSelector = animationSource.containerSelector || "";
         this.compiledSource.pasteBoardSequences = {};
-        this.compiledSource.compiledVelocitySequences = [];
 
         for (var i = 0; i < animationSource.animations.length; i++) {
             var animation = animationSource.animations[i];
-            var pasteBoardSequence = this.getPasteboardSequenceFromAnimation(animation);
-            this.compiledSource.pasteBoardSequences[animation.name] = pasteBoardSequence;
+            if (this.compiledSource.pasteBoardSequences[animation.name] !== undefined) {
+                console.log("Timeline ERROR: " + animation.name + " is duplicated.");
+            }
+            this.compiledSource.pasteBoardSequences[animation.name] = this.getPasteboardSequenceFromAnimation(animation);
         }
-        this.arrangeSequences();
-        this.generateVelocitySequences();
-
-        return this.compilePlaylists();
     };
 
     this.getPasteboardSequenceFromAnimation = function(animation) {
         var selector = this.getElementSelector(animation);
 
-        if (animation.transitions !== undefined) {
-            for (var i = 0; i < animation.transitions.length; i++) {
-                animation.transitions[i].options = animation.transitions[i].options || {};
-                defaultToIgnoringGlobalQueue(animation.transitions[i]);
-            }
-        }
-
         var pasteBoardSequence = {
             "selector": selector,
-            "transitions": animation.transitions,
-            "initialState": animation.initialState,
+            "transitions": animation.transitions || [],
+            "initialState": animation.initialState || null,
             "sequenceLength": null,
-            "name": animation.name,
+            "name": animation.name || null,
             "anchorOffset": animation.anchorOffset || 0,
-            "anchorItem": animation.anchorItem,
+            "anchorItem": animation.anchorItem || null,
             "paddingStart": animation.paddingStart || 0,
             "paddingEnd": animation.paddingEnd || 0,
             "globalPosition": null
         };
+
+        animation.transitions = animation.transitions || [];
+
+        for (var i = 0; i < animation.transitions.length; i++) {
+            animation.transitions[i].transform = animation.transitions[i].transform || nop;
+            animation.transitions[i].options = animation.transitions[i].options || {};
+            animation.transitions[i].options.queue = animation.transitions[i].options.queue || false;
+        }
 
         calculateSequenceLength(pasteBoardSequence);
         return pasteBoardSequence;
@@ -94,48 +98,14 @@ function Timeline() {
         return;
     };
 
-    this.generateVelocitySequences = function() {
-        //for every pasteboarded sequence, add a step to the beginning that includes the offset and the padding
-        var normaliseDelta = -this.lowestPositionInUse;
-        this.compiledSource.compiledVelocitySequences = [];
-
-        for (var key in this.compiledSource.pasteBoardSequences) {
-            var sequence = this.compiledSource.pasteBoardSequences[key];
-            sequence.globalPosition += normaliseDelta;
-
-            //add initial delay to position animation in timeline - nothing is not a valid css element but we have to
-            //put something in here because velocity does not have a NOP
-            var newVelocitySequence = [{
-                selector: sequence.selector,
-                p: nop,
-                o: {
-                    duration: sequence.globalPosition + sequence.paddingStart,
-                    queue: false
-                }
-            }];
-
-            if (sequence.transitions !== undefined)
-                for (var t = 0; t < sequence.transitions.length; t++) {
-                    var velocityTransition = {
-                        selector: sequence.selector,
-                        p: sequence.transitions[t].transform,
-                        o: sequence.transitions[t].options
-                    };
-                    velocityTransition.o.queue = false;
-                    newVelocitySequence.push(velocityTransition);
-                }
-
-            this.compiledSource.compiledVelocitySequences.push(newVelocitySequence);
-        }
-    };
-
     this.positionSequenceOnPasteboardIfPossible = function(sequence) {
-        if (sequence.anchorItem === undefined) { //depends on nothing so add to pasteboard
+        if (sequence.anchorItem === null) { //depends on nothing so add to pasteboard
             this.setSequencePositionOnPasteboard(sequence, sequence.anchorOffset);
             return true;
         }
 
-        if (sequence.anchorItem.name === undefined) {
+
+        if (sequence.anchorItem.name === null) {
             console.log("Timeline ERROR: Sequence " + sequence.name + " has anchorItem its name has not been declared?");
             return false;
         }
@@ -191,11 +161,7 @@ function Timeline() {
         sequence.sequenceLength = sequence.paddingStart + transitionTotalLength + sequence.paddingEnd;
     }
 
-    function defaultToIgnoringGlobalQueue(transition) {
-        if (transition.options.queue === undefined) {
-            transition.options.queue = false;
-        }
-    }
+
 
     this.getElementSelector = function(animation) {
         if (this.compiledSource.containerSelector === undefined) {
@@ -217,7 +183,6 @@ function Timeline() {
 
         for (i = 0; i < keys.length; i++) {
             sequence = this.compiledSource.pasteBoardSequences[keys[i]];
-
             sequence.globalPosition += normaliseDelta;
 
             //add initial delay to position animation in timeline - nothing is not a valid css element but we have to
@@ -233,12 +198,20 @@ function Timeline() {
 
             if (sequence.transitions !== undefined)
                 for (var t = 0; t < sequence.transitions.length; t++) {
+                    var option = sequence.transitions[t].options;
+                    var transform = sequence.transitions[t].transform;
+                    option.queue = false;
+
+                    if(typeof transform === 'string'){
+                        option.begin = transform;
+                        transform = nop;
+                    }
+
                     var velocityTransition = {
                         selector: sequence.selector,
-                        p: sequence.transitions[t].transform,
-                        o: sequence.transitions[t].options
+                        p: transform,
+                        o: option
                     };
-                    velocityTransition.o.queue = false;
                     newAnimationSequence.push(velocityTransition);
                 }
 
@@ -249,15 +222,17 @@ function Timeline() {
                 duration: 0
             };
 
-            if (initialState === undefined) {
+            if (initialState === null) {
                 initialState = nop;
             }
 
-            compiledResetSequence.push({
+            var resetItem = {
                 selector: sequence.selector,
                 p: initialState,
                 o: options
-            });
+            };
+
+            compiledResetSequence.push(resetItem);
         }
 
         return {

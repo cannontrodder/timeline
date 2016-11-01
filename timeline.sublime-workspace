@@ -4,12 +4,28 @@
 		"selected_items":
 		[
 			[
-				"anima",
-				"animationSource"
+				"res",
+				"ResetAndPlay"
+			],
+			[
+				"even",
+				"eventName"
+			],
+			[
+				"ev",
+				"event"
 			],
 			[
 				"anim",
-				"animations"
+				"animation"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"anima",
+				"animationSource"
 			],
 			[
 				"animation",
@@ -80,18 +96,18 @@
 	"buffers":
 	[
 		{
-			"file": "timeline-play/package.json",
+			"file": "timeline-play/timeline-play.js",
 			"settings":
 			{
-				"buffer_size": 295,
-				"line_ending": "Unix"
+				"buffer_size": 2604,
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "timeline.js",
 			"settings":
 			{
-				"buffer_size": 9326,
+				"buffer_size": 0,
 				"line_ending": "Windows"
 			}
 		}
@@ -174,12 +190,14 @@
 	],
 	"file_history":
 	[
+		"/C/www/timeline/timeline-play/package.json",
+		"/C/www/timeline/animation-schema.json",
+		"/C/www/Italy/src/node_modules/timeline/timeline.js",
 		"/C/www/timeline/timeline-play/timeline-play.js",
 		"/C/www/Italy/src/node_modules/timeline/timeline-play/timeline-play.js",
 		"/C/www/timeline/timeline.js",
 		"/C/www/timeline/gulp-timeline/gulp-timeline.js",
 		"/C/www/Italy/src/Tombola.Web.Resources/Scripts/animations/facebook_landing/main-splash.js",
-		"/C/www/timeline/timeline-play/package.json",
 		"/C/www/timeline/gulp-timeline/package.json",
 		"/C/www/timeline/timeline-player/package.json",
 		"/C/www/timeline/package.json",
@@ -191,7 +209,7 @@
 	],
 	"find":
 	{
-		"height": 32.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -205,6 +223,24 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"event",
+			"ResetAndPlay",
+			"event",
+			"pla",
+			"\n		",
+			"AttachDOMObjectsToPlaylist",
+			"compiledVelocitySequences",
+			"hide",
+			"show",
+			"log",
+			"compilePlaylists",
+			"generateVelocitySequences",
+			"calculateSequenceLength",
+			"defaultToIgnoringGlobalQueue",
+			"log",
+			"getPasteboardSequenceFromAnimation",
+			"length",
+			"transition",
 			"log",
 			"\n		",
 			"animationPlaylist",
@@ -257,51 +293,58 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "timeline-play/package.json",
+					"file": "timeline-play/timeline-play.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 295,
+						"buffer_size": 2604,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								135,
-								135
+								2186,
+								2186
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1820.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
-				},
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
 				{
 					"buffer": 1,
 					"file": "timeline.js",
-					"semi_transient": true,
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9326,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								23,
+								0,
 								0
 							]
 						],
@@ -315,14 +358,9 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				}
-			]
-		},
-		{
-			"sheets":
-			[
 			]
 		}
 	],
@@ -354,7 +392,7 @@
 		"cols":
 		[
 			0.0,
-			0.688312861272,
+			0.813405797101,
 			1.0
 		],
 		"rows":
@@ -414,7 +452,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 472.0,
+	"side_bar_width": 264.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
