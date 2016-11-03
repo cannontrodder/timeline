@@ -4,6 +4,46 @@
 		"selected_items":
 		[
 			[
+				"reset",
+				"ResetAndPlay"
+			],
+			[
+				"anim",
+				"animations"
+			],
+			[
+				"for",
+				"for\tfor (…) {…} (Improved Native For-Loop)"
+			],
+			[
+				"log",
+				"logError"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"pl",
+				"playlistItem"
+			],
+			[
+				"re",
+				"ReplaceEventWithHandler"
+			],
+			[
+				"play",
+				"playlist"
+			],
+			[
+				"anima",
+				"animation"
+			],
+			[
+				"animation",
+				"animationSource"
+			],
+			[
 				"res",
 				"ResetAndPlay"
 			],
@@ -16,20 +56,8 @@
 				"event"
 			],
 			[
-				"anim",
-				"animation"
-			],
-			[
 				"fun",
 				"function"
-			],
-			[
-				"anima",
-				"animationSource"
-			],
-			[
-				"animation",
-				"animationName"
 			],
 			[
 				"com",
@@ -46,10 +74,6 @@
 			[
 				"get",
 				"getElementItem"
-			],
-			[
-				"for",
-				"for	for (…) {…}"
 			],
 			[
 				"ani",
@@ -89,7 +113,7 @@
 			],
 			[
 				"prin",
-				"println	println!(…)"
+				"println\tprintln!(…)"
 			]
 		]
 	},
@@ -99,7 +123,26 @@
 			"file": "timeline-play/timeline-play.js",
 			"settings":
 			{
-				"buffer_size": 2604,
+				"buffer_size": 4224,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/www/Italy/src/Tombola.Web.Resources/Scripts/animations/facebook_landing/main-splash.js",
+			"settings":
+			{
+				"buffer_size": 685,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/www/Italy/src/Tombola.Web.Resources/Scripts/animations/facebook_landing/scrolling-desktops.json",
+			"settings":
+			{
+				"buffer_size": 1581,
+				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
 		},
@@ -107,7 +150,16 @@
 			"file": "timeline.js",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 9150,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/www/Italy/src/node_modules/timeline/animation-schema.json",
+			"settings":
+			{
+				"buffer_size": 2784,
 				"line_ending": "Windows"
 			}
 		}
@@ -190,12 +242,13 @@
 	],
 	"file_history":
 	[
+		"/C/www/Italy/src/Tombola.Web.Resources/Scripts/animations/facebook_landing/splash-animation.json",
+		"/C/www/timeline/timeline-play/timeline-play.js",
+		"/C/www/timeline/timeline.js",
 		"/C/www/timeline/timeline-play/package.json",
 		"/C/www/timeline/animation-schema.json",
 		"/C/www/Italy/src/node_modules/timeline/timeline.js",
-		"/C/www/timeline/timeline-play/timeline-play.js",
 		"/C/www/Italy/src/node_modules/timeline/timeline-play/timeline-play.js",
-		"/C/www/timeline/timeline.js",
 		"/C/www/timeline/gulp-timeline/gulp-timeline.js",
 		"/C/www/Italy/src/Tombola.Web.Resources/Scripts/animations/facebook_landing/main-splash.js",
 		"/C/www/timeline/gulp-timeline/package.json",
@@ -213,7 +266,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 108.0,
 		"where_history":
 		[
 		]
@@ -223,11 +276,88 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"handleEvent",
+			"GetEvent",
+			"handleEvent",
+			"call",
+			"handler",
+			"getElementSelector",
+			"select",
+			"error",
+			"console",
+			"this",
+			"Reset(",
+			"Rest(",
+			"reset",
+			"Event",
+			"animation",
+			"getElementItem",
+			"attachDOMObjectsToPlaylist",
+			"attac",
+			"animation",
+			"Register",
+			"register",
+			"log",
+			"reset(",
+			"option",
+			"complete",
+			"HandleEvent",
+			"log",
+			"error",
+			"err",
+			"}\n",
+			"HandleEvent",
+			"events",
+			"HandleEvent",
+			"comp",
+			"generateVelocitySequences",
+			"AttachDOMObjectsToPlaylist",
+			"compilePlaylists",
+			"generateVelocitySequences",
+			"compilePlaylists",
+			"compil",
+			"generateVelocitySequences",
+			"compilePlaylists",
+			"generateVelocitySequences",
+			"compilePlaylists",
+			"generateVelocitySequences",
+			"compilePlaylists",
+			"generateVelocitySequences",
+			"arrangeSequences",
+			"consol",
+			"console.log",
+			"comsole.log",
+			"//",
+			"name",
+			"generateVelocitySequences",
+			"compilePlaylists",
+			"transform",
+			"nop",
+			"null",
+			"resetPlaylist",
+			"AttachDOMObjectsToPlaylist",
+			"compilePlaylists",
+			"push",
+			"generateVelocitySequences",
+			"AttachDOMObjectsToPlaylist",
+			"compileplay",
+			"positionSequenceOnPasteboardIfPossible",
+			"arrangeSequences",
+			"calculateSequenceLength",
+			"defaulttot",
+			"defaultToIgnoringGlobalQueue",
+			"calculateSequenceLength",
+			"getElementSelector",
+			"importSourceDataIntoPasteboard",
+			"getElementSelector",
+			"for",
+			"each",
+			"arrangeSequences",
 			"event",
 			"ResetAndPlay",
 			"event",
 			"pla",
-			"\n		",
+			"\n\t\t",
 			"AttachDOMObjectsToPlaylist",
 			"compiledVelocitySequences",
 			"hide",
@@ -242,12 +372,12 @@
 			"length",
 			"transition",
 			"log",
-			"\n		",
+			"\n\t\t",
 			"animationPlaylist",
 			"reset",
 			"lo",
 			"log",
-			"\n					",
+			"\n\t\t\t\t\t",
 			"getElementItem",
 			"AttachDOMObjectsToPlaylist",
 			"animationPlaylists",
@@ -273,9 +403,7 @@
 			"pasteBoardSequences",
 			"playlist",
 			"generateVelocitySequences",
-			"pla",
-			"Play",
-			"play"
+			"pla"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -293,7 +421,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -302,15 +430,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2604,
+						"buffer_size": 4224,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2186,
-								2186
+								790,
+								790
 							]
 						],
 						"settings":
@@ -319,25 +447,47 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1820.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
+				},
 				{
 					"buffer": 1,
-					"file": "timeline.js",
+					"file": "/C/www/Italy/src/Tombola.Web.Resources/Scripts/animations/facebook_landing/main-splash.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 685,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								430,
+								430
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/www/Italy/src/Tombola.Web.Resources/Scripts/animations/facebook_landing/scrolling-desktops.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1581,
 						"regions":
 						{
 						},
@@ -350,7 +500,67 @@
 						],
 						"settings":
 						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "timeline.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9150,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6055,
+								6055
+							]
+						],
+						"settings":
+						{
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/C/www/Italy/src/node_modules/timeline/animation-schema.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2784,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								535,
+								535
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
@@ -381,18 +591,11 @@
 				0,
 				1,
 				1
-			],
-			[
-				1,
-				0,
-				2,
-				1
 			]
 		],
 		"cols":
 		[
 			0.0,
-			0.813405797101,
 			1.0
 		],
 		"rows":
@@ -451,8 +654,8 @@
 	"show_minimap": true,
 	"show_open_files": true,
 	"show_tabs": true,
-	"side_bar_visible": true,
-	"side_bar_width": 264.0,
+	"side_bar_visible": false,
+	"side_bar_width": 50.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

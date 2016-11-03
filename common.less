@@ -2,6 +2,21 @@
     background-image: url("@{image_path}@{img}");
 }
 
+.flyingtext() {
+    position: relative;
+
+    .blast-root {
+        float: right;
+        position: relative;
+    }
+
+    .blast {
+        float: left;
+        position: relative;
+        padding-left: 0.3em;
+    }
+}
+
 .containerSetup (@isContainer) when (@isContainer='yes') {
     position: relative;
     overflow: hidden;
@@ -14,6 +29,10 @@
 
 .offscreen(@startOffscreen, @height) when (@startOffscreen='yes') {
     display: none;
+}
+
+.offscreen(@startOffscreen, @height) when (@startOffscreen='no') {
+    display: block;
 }
 
 .base(@x, @y, @img: '', @startOffscreen, @hasImage) {

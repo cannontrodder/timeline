@@ -32,7 +32,7 @@ function Timeline() {
         for (var i = 0; i < animationSource.animations.length; i++) {
             var animation = animationSource.animations[i];
             if (this.compiledSource.pasteBoardSequences[animation.name] !== undefined) {
-                console.log("Timeline ERROR: " + animation.name + " is duplicated.");
+                logError(animation.name + " is duplicated.");
             }
             this.compiledSource.pasteBoardSequences[animation.name] = this.getPasteboardSequenceFromAnimation(animation);
         }
@@ -92,7 +92,7 @@ function Timeline() {
         } while (leftToArrange !== sequencesLeftToArrangeLastTime && leftToArrange > 0);
 
         if (leftToArrange > 0) {
-            console.log("Timeline ERROR: circular referenced anchor");
+            logError("circular referenced anchor");
         }
 
         return;
@@ -106,14 +106,14 @@ function Timeline() {
 
 
         if (sequence.anchorItem.name === null) {
-            console.log("Timeline ERROR: Sequence " + sequence.name + " has anchorItem its name has not been declared?");
+            logError("Sequence " + sequence.name + " has anchorItem its name has not been declared?");
             return false;
         }
 
         var dependentSequence = this.compiledSource.pasteBoardSequences[sequence.anchorItem.name];
 
         if (dependentSequence === undefined || dependentSequence === null) {
-            console.log("Timeline ERROR: Could not find " + sequence.anchorItem.name);
+            logError("Could not find " + sequence.anchorItem.name);
             return false;
         }
 
@@ -164,6 +164,10 @@ function Timeline() {
 
 
     this.getElementSelector = function(animation) {
+        if (animation.selector === undefined) {
+            logError(animation.name + " does not have a selector.");
+        }
+
         if (this.compiledSource.containerSelector === undefined) {
             return animation.selector;
         } else {
@@ -202,7 +206,7 @@ function Timeline() {
                     var transform = sequence.transitions[t].transform;
                     option.queue = false;
 
-                    if(typeof transform === 'string'){
+                    if (typeof transform === 'string') {
                         option.begin = transform;
                         transform = nop;
                     }
@@ -240,6 +244,10 @@ function Timeline() {
             resetPlaylist: compiledResetSequence
         };
     };
+
+    function logError(error) {
+        console.log("Timeline ERROR: " + error);
+    }
 }
 
 module.exports = Timeline;;
