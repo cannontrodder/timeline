@@ -1,16 +1,19 @@
 /*jslint node: true */
 "use strict";
-var gulp = require("gulp"),
-    debug = require("gulp-debug"),
-    uglify = require('gulp-uglify'),
-    sequence = require('gulp-sequence');
+var gulp = require("gulp");
+var debug = require("gulp-debug");
+var uglify = require("gulp-uglify");
+var sequence = require("gulp-sequence");
+var gutil = require("gulp-util");
+var ts = require("gulp-typescript");
 
 function swallowError(error) {
     console.log(error.toString());
-    this.emit('end');
+    this.emit("end");
 }
 
-var tsFilesGlob = ["./**/*.ts", "!./node_modules/**/*"];
+var tsFilesES6Glob = ["./**/*.ts", "!./node_modules/**/*", "!./timeline-play/**.*"];
+var tsFilesES3Glob = ["./timeline-play/*.ts"];
 
 gulp.task("default", function (done) {
     sequence("typescript")(done);
@@ -20,7 +23,18 @@ gulp.task("watch", function () {
     gulp.watch(watchGlob, ["build"]);
 });
 
-gulp.task("typescript", function () {
-    return gulp.src(tsFilesGlob)
-    	.pipe(debug());
+gulp.task("typescript", ["typescript-es3", "typescript-es6"]);
+
+gulp.task("typescript-es6", function () {
+    return gulp.src(tsFilesES6Glob, {base: "./"})
+    	.pipe(debug())
+    	.pipe(ts({target: "ES6"}))
+    	.pipe(gulp.dest("./"));
+});
+
+gulp.task("typescript-es3", function () {
+    return gulp.src(tsFilesES3Glob, {base: "./"})
+    	.pipe(debug())
+       	.pipe(ts({target: "ES3"}))
+    	.pipe(gulp.dest("./"));
 });
