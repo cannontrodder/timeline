@@ -15,5 +15,13 @@
   "bugs": {
     "url": "https://github.com/cannontrodder/timeline/issues"
   },
-  "homepage": "https://github.com/cannontrodder/timeline#readme"
+  "homepage": "https://github.com/cannontrodder/timeline#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-debug": "^2.1.2",
+    "gulp-sequence": "^0.4.6",
+    "gulp-typescript": "^3.1.2",
+    "gulp-uglify": "^2.0.0",
+    "typescript": "^2.0.7"
+  }
 }
