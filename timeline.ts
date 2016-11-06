@@ -1,4 +1,4 @@
-﻿/* jshint node: true */
+﻿/* jshint node: true, esversion: 6 */
 
 /*
  * Timeline is designed to take some guidance from the user on what to animate and what triggers it, it then bakes a timeline for each element
@@ -250,4 +250,5 @@ function Timeline() {
     }
 }
 
-module.exports = Timeline;;
+
+export default Timeline;

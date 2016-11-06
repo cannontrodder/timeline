@@ -1,4 +1,5 @@
-/* jshint node: true */
+/* jshint node: true, esversion: 3 */
+"use strict";
 function TimelinePlayer() {
     this.Clear = function () {
         this.animations = {};
@@ -19,13 +20,10 @@ function TimelinePlayer() {
         }
         return animation;
     };
-    this.GetAllAnimations = function () {
-        return Object.values(animation);
-    };
     // pass nothing in and all animations end instantly
     // otherwise they are scaled up by the factor you pass in, e.g. 2 doubles the length of the animation, 0.5 halves it
     this.DebugMode = function (speed) {
-        $.Velocity.mock = speed || true;
+        jQuery.Velocity.mock = speed || true;
     };
     this.ResetAndPlay = function (animationName) {
         if (animationName === undefined) {
@@ -70,9 +68,9 @@ function TimelinePlayer() {
         this.RefreshDOM(animationName);
         for (var i = 0; i < animation.resetPlaylist.length; i++) {
             var transition = animation.resetPlaylist[i];
-            //			transition.e.hide();
             var options = {
-                "duration": 0
+                "duration": 0,
+                "complete": undefined
             };
             if (i === animation.resetPlaylist.length - 1) {
                 options.complete = function () {
@@ -145,7 +143,7 @@ function TimelinePlayer() {
     };
     function getElementItem(selector) {
         var element = $(selector);
-        if (element.size() === 0) {
+        if (element.length === 0) {
             logError("Cannot find DOM element " + selector + " is not defined.");
         }
         return $(selector);
@@ -154,4 +152,5 @@ function TimelinePlayer() {
         console.log("Timeline ERROR: " + error);
     }
 }
-module.exports = TimelinePlayer;
+exports.__esModule = true;
+exports["default"] = TimelinePlayer;
