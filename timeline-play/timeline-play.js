@@ -90,7 +90,6 @@ function TimelinePlayer() {
 
 		for (var i = 0; i < animation.resetPlaylist.length; i++) {
 			var transition = animation.resetPlaylist[i];
-//			transition.e.hide();
 
 			var options = {
 				"duration": 0
